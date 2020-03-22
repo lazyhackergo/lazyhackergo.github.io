@@ -1,1 +1,1 @@
-lazyhackergo.com
+lazyhacker.dev
