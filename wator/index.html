@@ -1,12 +1,23 @@
 <html>
 <head>
-
 <meta name="go-import" content="lazyhacker.dev/wator git https://github.com/lazyhacker/wator">
-
 <meta name="go-import" content="lazyhackergo.com/wator git https://github.com/lazyhacker/wator">
-
-<meta http-equiv="refresh" content="2; url=https://godoc.org/lazyhacker.dev/wator">
 </head>
-<body>
-Redirecting to <a href="https://godoc.org/lazyhacker.dev/wator">https://godoc.org/lazyhacker.dev/wator</a>.
+<script src="wasm_exec.js"></script>
+<script>
+// Polyfill
+if (!WebAssembly.instantiateStreaming) {
+  WebAssembly.instantiateStreaming = async (resp, importObject) => {
+    const source = await (await resp).arrayBuffer();
+    return await WebAssembly.instantiate(source, importObject);
+  };
+}
+
+const go = new Go();
+WebAssembly.instantiateStreaming(fetch("wator.wasm"), go.importObject).then(result => {
+  go.run(result.instance);
+});
+</script>
+
+
 </html>
